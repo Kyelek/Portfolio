@@ -86,7 +86,7 @@ informacionPersonal.redes.forEach(dato =>{
     if(dato[1] === "")return;
     nuevoRedes.innerHTML += `
         <a href="${dato[1]}" target="_blank">
-            <img src="/img/iconos/${getIconoRed(dato[0])}">
+            <img src="img/iconos/${getIconoRed(dato[0])}">
         </a>
         
     `
