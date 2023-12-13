@@ -93,4 +93,3 @@ informacionPersonal.redes.forEach(dato =>{
 });
 aside.appendChild(nuevoRedes);
 
-

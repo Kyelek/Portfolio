@@ -1,5 +1,12 @@
 const proyectos = [
     {
+        titulo:"PinPong Clásico",
+        descripcion:"Un PinPong clásico hecho en su totalidad con JavaScript, HTML y CSS",
+        link:"https://github.com/Kyelek/PinPong-JS",
+        imagen:"PinPong.PNG",
+        tecnologias:["JavaScript | ", "HTML |","CSS"]
+    },
+    {
         titulo:"Calculadora con Python",
         descripcion:"Uno de mis primeros proyectos, una calculadora creada en Python utilizando la libreria Tkinter",
         link:"https://github.com/Kyelek/CalculadoraPyTkinter",
