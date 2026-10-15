@@ -1,0 +1,40 @@
+@let p = project();
+<article class="row" [class.row--compact]="compact()">
+  @if (index(); as i) {
+    <span class="row__index">{{ i < 10 ? '0' + i : i }}</span>
+  }
+
+  <div class="row__body">
+    <h3 class="row__title">
+      <a [routerLink]="['/proyectos', p.slug]" class="row__link">{{ p.title }}</a>
+    </h3>
+    <p class="row__summary">{{ p.summary }}</p>
+
+    @if (!compact() && p.metrics?.length) {
+      <ul class="row__metrics">
+        @for (m of p.metrics; track m.label) {
+          <li>
+            <strong>{{ m.value }}</strong> {{ m.label }}
+          </li>
+        }
+      </ul>
+    }
+
+    <ul class="tags">
+      @for (tech of p.stack; track tech) {
+        <li class="tag">{{ tech }}</li>
+      }
+    </ul>
+  </div>
+
+  <div class="row__meta">
+    <span
+      class="status-badge"
+      [class.status-badge--live]="p.status === 'En producción'"
+      [class.status-badge--beta]="p.status === 'Beta cerrada'"
+      >{{ p.status }}</span
+    >
+    <span>{{ p.role }}</span>
+    <span class="row__arrow"><app-icon name="arrow-right" [size]="18" /></span>
+  </div>
+</article>

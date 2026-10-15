@@ -1,0 +1,113 @@
+@if (project(); as p) {
+  <article class="case container">
+    <a routerLink="/" fragment="proyectos" class="back">
+      <app-icon name="arrow-left" [size]="16" /> Todos los proyectos
+    </a>
+
+    <header class="case__header">
+      <div class="case__top">
+        <p class="eyebrow">Caso de estudio · {{ p.year }}</p>
+        <span
+          class="status-badge"
+          [class.status-badge--live]="p.status === 'En producción'"
+          [class.status-badge--beta]="p.status === 'Beta cerrada'"
+          >{{ p.status }}</span
+        >
+      </div>
+      <h1>{{ p.title }}</h1>
+      <p class="lead">{{ p.summary }}</p>
+
+      <dl class="facts">
+        <div>
+          <dt>Rol</dt>
+          <dd>{{ p.role }}</dd>
+        </div>
+        <div>
+          <dt>Stack</dt>
+          <dd>{{ p.stack.join(' · ') }}</dd>
+        </div>
+      </dl>
+
+      @if (p.links.demo || p.links.repo) {
+        <div class="links">
+          @if (p.links.demo) {
+            <a class="btn btn--primary" [href]="p.links.demo" target="_blank" rel="noopener">
+              Ver demo <app-icon name="external" [size]="16" />
+            </a>
+          }
+          @if (p.links.repo) {
+            <a class="btn btn--ghost" [href]="p.links.repo" target="_blank" rel="noopener">
+              <app-icon name="github" [size]="16" /> Código
+            </a>
+          }
+        </div>
+      }
+    </header>
+
+    @if (p.metrics?.length) {
+      <ul class="metrics">
+        @for (m of p.metrics; track m.label) {
+          <li>
+            <strong>{{ m.value }}</strong>
+            <span>{{ m.label }}</span>
+          </li>
+        }
+      </ul>
+    }
+
+    <div class="body">
+      <section>
+        <h2><span>01</span> Contexto</h2>
+        <p>{{ p.caseStudy.context }}</p>
+      </section>
+
+      <section class="problem">
+        <h2><span>02</span> El problema</h2>
+        <p>{{ p.caseStudy.problem }}</p>
+      </section>
+
+      <section>
+        <h2><span>03</span> Cómo lo abordé</h2>
+        <ol class="approach">
+          @for (step of p.caseStudy.approach; track step) {
+            <li>{{ step }}</li>
+          }
+        </ol>
+      </section>
+
+      <section>
+        <h2><span>04</span> La solución</h2>
+        <p>{{ p.caseStudy.solution }}</p>
+      </section>
+
+      <section>
+        <h2><span>05</span> Resultados</h2>
+        <ul class="results">
+          @for (r of p.caseStudy.results; track r) {
+            <li><app-icon name="check" [size]="18" /> {{ r }}</li>
+          }
+        </ul>
+      </section>
+
+      @if (p.caseStudy.learnings) {
+        <aside class="learning">
+          <p class="eyebrow">Lo que aprendí</p>
+          <p>{{ p.caseStudy.learnings }}</p>
+        </aside>
+      }
+    </div>
+
+    @if (next(); as n) {
+      <a class="next" [routerLink]="['/proyectos', n.slug]">
+        <span class="eyebrow">Siguiente caso</span>
+        <strong>{{ n.title }} <app-icon name="arrow-right" /></strong>
+      </a>
+    }
+  </article>
+} @else {
+  <section class="case container">
+    <h1>Proyecto no encontrado</h1>
+    <p class="lead">Puede que el enlace esté mal o que el proyecto ya no exista.</p>
+    <a routerLink="/" fragment="proyectos" class="btn btn--primary">Ver todos los proyectos</a>
+  </section>
+}

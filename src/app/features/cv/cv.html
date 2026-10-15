@@ -1,0 +1,149 @@
+@let p = portfolio.profile();
+<div class="container page">
+  <div class="toolbar no-print">
+    <div>
+      <p class="eyebrow">Currículum</p>
+      <p class="toolbar__hint">
+        Para guardarlo como PDF, pulsa el botón y elige «Guardar como PDF».
+      </p>
+    </div>
+    <div class="toolbar__actions">
+      @if (p.cvPdfUrl) {
+        <a class="btn btn--ghost" [href]="p.cvPdfUrl" download>
+          <app-icon name="download" [size]="16" /> Descargar PDF
+        </a>
+      }
+      <button type="button" class="btn btn--primary" (click)="print()">
+        <app-icon name="download" [size]="16" /> Guardar como PDF
+      </button>
+    </div>
+  </div>
+
+  <article class="sheet">
+    <header class="sheet__header">
+      @if (p.photoUrl) {
+        <img class="sheet__photo" [src]="p.photoUrl" [alt]="p.name" width="96" height="96" />
+      }
+      <h1>{{ p.name }}</h1>
+      <p class="sheet__role">{{ p.role }} · Angular · TypeScript · Java</p>
+      <ul class="sheet__contact">
+        <li><app-icon name="map-pin" [size]="13" /> {{ p.location }}</li>
+        <li>
+          <app-icon name="mail" [size]="13" /> <a [href]="'mailto:' + p.email">{{ p.email }}</a>
+        </li>
+        @if (p.phone) {
+          <li>{{ p.phone }}</li>
+        }
+        @for (s of p.socials; track s.url) {
+          <li>
+            <app-icon [name]="s.icon" [size]="13" />
+            <a [href]="s.url" target="_blank" rel="noopener">{{ displayUrl(s.url) }}</a>
+          </li>
+        }
+      </ul>
+    </header>
+
+    <div class="sheet__body">
+      <main class="sheet__main">
+        <section>
+          <h2>Perfil</h2>
+          <p>{{ p.summary }}</p>
+        </section>
+
+        <section>
+          <h2>Experiencia profesional</h2>
+          @for (job of portfolio.devExperience(); track job.company + job.start) {
+            <div class="entry">
+              <div class="entry__head">
+                <h3>
+                  {{ job.role }} <span class="entry__org">· {{ job.company }}</span>
+                </h3>
+                <span class="entry__date">{{ job.start }} – {{ job.end ?? 'Actualidad' }}</span>
+              </div>
+              <ul>
+                @for (a of job.achievements; track a) {
+                  <li>{{ a }}</li>
+                }
+              </ul>
+            </div>
+          }
+        </section>
+
+        <section>
+          <h2>Proyectos destacados</h2>
+          @for (project of portfolio.featuredProjects(); track project.slug) {
+            <div class="entry">
+              <div class="entry__head">
+                <h3>{{ project.title }}</h3>
+                <span class="entry__date">{{ project.status }}</span>
+              </div>
+              <p>{{ project.summary }}</p>
+              <p class="entry__stack">{{ project.stack.join(' · ') }}</p>
+            </div>
+          }
+        </section>
+
+        @if (portfolio.otherExperience().length) {
+          <section>
+            <h2>Otra experiencia</h2>
+            @for (job of portfolio.otherExperience(); track job.role + job.start) {
+              <div class="entry entry--compact">
+                <div class="entry__head">
+                  <h3>
+                    {{ job.role }} <span class="entry__org">· {{ job.company }}</span>
+                  </h3>
+                  <span class="entry__date">{{ job.start }} – {{ job.end ?? 'Actualidad' }}</span>
+                </div>
+                <p>{{ job.description }}</p>
+              </div>
+            }
+          </section>
+        }
+      </main>
+
+      <aside class="sheet__side">
+        <section>
+          <h2>Habilidades</h2>
+          @for (group of portfolio.skills(); track group.category) {
+            <div class="side-group">
+              <h3>{{ group.category }}</h3>
+              <p>{{ group.items.join(', ') }}</p>
+            </div>
+          }
+        </section>
+
+        <section>
+          <h2>Formación</h2>
+          @for (ed of portfolio.education(); track ed.title) {
+            <div class="side-group">
+              <h3>{{ ed.title }}</h3>
+              <p>
+                {{ ed.institution }} ·
+                {{ ed.start === ed.end ? ed.start : ed.start + '–' + ed.end }}
+              </p>
+            </div>
+          }
+        </section>
+
+        <section>
+          <h2>Idiomas</h2>
+          @for (lang of portfolio.languages(); track lang.name) {
+            <div class="side-row">
+              <span>{{ lang.name }}</span>
+              <span>{{ lang.level }}</span>
+            </div>
+          }
+        </section>
+
+        <section>
+          <h2>Certificaciones</h2>
+          <ul class="side-list">
+            @for (c of portfolio.certifications(); track c.name) {
+              <li>{{ c.name }}</li>
+            }
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </article>
+</div>

@@ -1,0 +1,74 @@
+@let p = profile();
+<section class="hero container" aria-labelledby="hero-title">
+  <div class="hero__main">
+    <p class="status-badge status-badge--live">{{ p.availability }}</p>
+    <h1 id="hero-title">
+      {{ p.name }}
+      <span class="hero__role">{{ p.role }}</span>
+    </h1>
+    <p class="lead">{{ p.tagline }}</p>
+
+    <div class="cta">
+      <a routerLink="/" fragment="proyectos" class="btn btn--primary">
+        Ver proyectos <app-icon name="arrow-right" [size]="16" />
+      </a>
+      <a routerLink="/cv" class="btn btn--ghost">
+        <app-icon name="download" [size]="16" /> Currículum
+      </a>
+      @for (s of p.socials; track s.url) {
+        <a
+          class="icon-btn icon-btn--lg"
+          [href]="s.url"
+          target="_blank"
+          rel="noopener"
+          [attr.aria-label]="s.label"
+        >
+          <app-icon [name]="s.icon" [size]="18" />
+        </a>
+      }
+    </div>
+  </div>
+
+  <aside class="profile-card" aria-label="Ficha profesional">
+    <div class="profile-card__head">
+      @if (p.photoUrl) {
+        <img class="avatar" [src]="p.photoUrl" [alt]="p.name" width="64" height="64" />
+      } @else {
+        <app-monogram class="avatar" [name]="p.name" />
+      }
+      <div>
+        <strong>{{ p.name }}</strong>
+        <span>{{ p.role }}</span>
+      </div>
+    </div>
+    <dl class="facts">
+      @for (f of p.facts; track f.label) {
+        <div>
+          <dt>{{ f.label }}</dt>
+          <dd>{{ f.value }}</dd>
+        </div>
+      }
+    </dl>
+  </aside>
+</section>
+
+<div class="container">
+  <div class="proof">
+    <ul class="highlights">
+      @for (h of p.highlights; track h.label) {
+        <li>
+          <strong>{{ h.value }}</strong>
+          <span>{{ h.label }}</span>
+        </li>
+      }
+    </ul>
+    <div class="companies">
+      <p class="eyebrow">Experiencia en</p>
+      <ul>
+        @for (c of companies(); track c) {
+          <li>{{ c }}</li>
+        }
+      </ul>
+    </div>
+  </div>
+</div>

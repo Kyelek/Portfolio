@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Francisco Eugenio Ibeas · Desarrollador Full Stack</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Francisco Eugenio Ibeas Aniceto, desarrollador Full Stack en Granada especializado en Angular, TypeScript y Java. Proyectos, casos de estudio y CV."
+    />
+    <meta name="theme-color" content="#fbfbfa" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Francisco Eugenio Ibeas · Desarrollador Full Stack" />
+    <meta
+      property="og:description"
+      content="Angular, TypeScript y Java. Proyectos, casos de estudio y CV."
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Aplica el tema antes de pintar para evitar parpadeo.
+      try {
+        var t = localStorage.getItem('portfolio-theme');
+        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>
