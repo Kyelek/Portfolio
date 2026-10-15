@@ -2,7 +2,7 @@
 
 Portfolio y CV de desarrollador Full Stack. Proyectos con caso de estudio, experiencia y un CV imprimible generado a partir de los mismos datos.
 
-**Web:** https://francisco-dev.vercel.app
+**Web:** https://francisco-ibeas.vercel.app
 
 ## Stack
 
